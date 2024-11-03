@@ -1,6 +1,6 @@
 console.log("hello word")
 
-const Admin = "/admin/products/change-status"
+const Admin = "/admin/products/change-status/hi"
 console.log(Admin)
 console.log("Admin")
 
