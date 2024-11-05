@@ -16,15 +16,15 @@ app.use(methodOverride("_method")) // ghi de phuong thuc de chuyen thanh PATCH
 app.use(express.urlencoded({extended: false}))
 
 
-app.set("views","./views") //cấu hình các tùy chọn như views hay view engine
+app.set("views",`${__dirname}/views`) //cấu hình các tùy chọn như views hay view engine //luc dau la app.set("views","./views")
 app.set("view engine","pug")
 
  // App Locals Variables
  
  app.locals.prefixAdmin= systemConfig.prefixAdmin //gán giá trị vào biến cục bộ (locals) 
- // biến cục bộ này được truyền vào tất cả các view  khi render do đó có thể được truy cập trực tiếp trong các file view (trong trường hợp này là các file .pug).
+ // biến cục bộ này được truyền vào tất cả các view  khi render do đó có thể được truy cập trực tiếp trong các file view
 
-app.use(express.static('public'))
+app.use(express.static(`${__dirname}/public`)) //luc dau la app.use(express.static('public')) them ${__dirname}/ de sever hieu public la 1 thu muc  
 
 //Routes
 route(app)
