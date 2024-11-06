@@ -61,7 +61,7 @@ module.exports.index= async (req, res) => { // index la ten ham
         pageTitle: "Danh sách sản phẩm",
         products: products,
         filterStatus: filterStatus,
-        keyword: objectSearch.keywordd,
+        keyword: objectSearch.keyword,
         pagination: objectPagination
     })
 }  
@@ -73,6 +73,8 @@ module.exports.changeStatus = async (req, res) => {
 
     await Product.updateOne({_id: id},{status: status})
 
+    req.flash("success", "Cập nhật trạng thái thành công!")
+
     res.redirect("back") // chuyen ve trang dang thao tac truoc do
 }
 
@@ -83,19 +85,23 @@ module.exports.changeMulti = async (req, res) => {
     switch(type) {
         case "active":
             await Product.updateMany({_id: {$in: ids}}, {status: "active"}) //Toán tử $in: tìm tất cả các tài liệu có trường _id nằm trong mảng ids.
+            req.flash("success", `Cập nhật trạng thái ${ids.length} sản phẩm thành công `)
             break
         case "inactive":
             await Product.updateMany({_id: {$in: ids}}, {status: "inactive"})
+            req.flash("success", `Cập nhật trạng thái ${ids.length} sản phẩm thành công `)
             break
         case "delete-all":
             await Product.updateMany({_id: {$in: ids}}, {deleted: "true", deletedAt: new Date()})
+            req.flash("success", `Xóa thành công ${ids.length} sản phẩm`)
             break
         case "change-position":
-            for(const item of ids){ // dungf for of để lặp mà ko dùng updateMany vì giá trị cập nhật của mỗi phần tử khác nhau
+            for(const item of ids){ // dùng for of để lặp mà ko dùng updateMany vì giá trị cập nhật của mỗi phần tử khác nhau
                 let [id, position] = item.split("-") //tach ra thanh mang, cu gap dau - la tach thanh 1 mang 2 phan tu
                 position = parseInt(position)
                 await Product.updateOne({_id: id}, {position: position})
             }
+            req.flash("success", `Sửa thành công ${ids.length} sản phẩm`)
             break
         default:
             break
