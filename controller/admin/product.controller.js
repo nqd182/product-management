@@ -101,7 +101,7 @@ module.exports.changeMulti = async (req, res) => {
                 position = parseInt(position)
                 await Product.updateOne({_id: id}, {position: position})
             }
-            req.flash("success", `Sửa thành công ${ids.length} sản phẩm`)
+            req.flash("success", `Đã đổi vị trí thành công ${ids.length} sản phẩm`)
             break
         default:
             break
@@ -120,5 +120,14 @@ module.exports.deleteItem = async(req, res) =>{
             deleted: true, deletedAt: new Date()
         })
 
+    req.flash("success", `Xóa sản phẩm thành công `)
     res.redirect("back")
 }
+
+// [GET] /admin/products/create
+module.exports.create= async (req, res) => { // index la ten ham 
+    res.render("admin/pages/products/create",{
+        pageTitle: "Danh sách sản phẩm",
+
+    })
+}  
