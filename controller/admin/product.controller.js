@@ -51,9 +51,12 @@ module.exports.index= async (req, res) => { // index la ten ham
         //End Pagination
 
     //Hiển thị danh sách sản phẩm
-    const products = await Product.find(find).limit(objectPagination.limitItems).skip(objectPagination.skip ) //skip: bo qua bnhieu sp dau tien
+    const products = await Product.find(find)
+    .sort({position: "asc"}) // giam dan: desc
+    .limit(objectPagination.limitItems)
+    .skip(objectPagination.skip ) //skip: bo qua bnhieu sp dau tien
 
-
+ 
     res.render("admin/pages/products/index",{
         pageTitle: "Danh sách sản phẩm",
         products: products,
@@ -70,22 +73,33 @@ module.exports.changeStatus = async (req, res) => {
 
     await Product.updateOne({_id: id},{status: status})
 
-    res.redirect("back") // chuyen huong ve trang truoc do 
+    res.redirect("back") // chuyen ve trang dang thao tac truoc do
 }
 
-// [PATCH] /admin/products/change-multi
+// [PATCH] /admin/products/change-multi (thay đổi nhiều sản phẩm)
 module.exports.changeMulti = async (req, res) => { 
     const type = req.body.type
     const ids = req.body.ids.split(", ") // chuyển lại về 1 mảng
     switch(type) {
         case "active":
-            await Product.updateMany({_id: {$in: ids}},{status: "active"}) //Toán tử $in: tìm tất cả các tài liệu có trường _id nằm trong mảng ids.
+            await Product.updateMany({_id: {$in: ids}}, {status: "active"}) //Toán tử $in: tìm tất cả các tài liệu có trường _id nằm trong mảng ids.
             break
         case "inactive":
-            await Product.updateMany({_id: {$in: ids}},{status: "inactive"})
+            await Product.updateMany({_id: {$in: ids}}, {status: "inactive"})
+            break
+        case "delete-all":
+            await Product.updateMany({_id: {$in: ids}}, {deleted: "true", deletedAt: new Date()})
+            break
+        case "change-position":
+            for(const item of ids){ // dungf for of để lặp mà ko dùng updateMany vì giá trị cập nhật của mỗi phần tử khác nhau
+                let [id, position] = item.split("-") //tach ra thanh mang, cu gap dau - la tach thanh 1 mang 2 phan tu
+                position = parseInt(position)
+                await Product.updateOne({_id: id}, {position: position})
+            }
+            break
+        default:
             break
     }
-    
     res.redirect("back")
 }
 
@@ -94,6 +108,7 @@ module.exports.deleteItem = async(req, res) =>{
     const id = req.params.id
 
     //await Product.deleteOne({_id: id})
+
     await Product.updateOne({_id: id}, 
         {
             deleted: true, deletedAt: new Date()

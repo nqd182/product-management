@@ -12,6 +12,7 @@ if(buttonsChangeStatus.length>0){
 
             const action = path + `/${statusChange}/${id}?_method=PATCH` // ?_method=PATCH de ghi de phuong thuc thanh PATCH, ben method form phai de la POST
             // ly do phai dung path mac du co the dung get la tranh bi nguoi dung truy cap va chinh sua du lieu
+            
             formChangeStatus.action = action //o day action la thuoc tinh mac dinh nen ko can dung setAttribute
 
             formChangeStatus.submit() // ham de gui form
@@ -38,12 +39,9 @@ if(checkBoxMulti){
         }
         
     })
-
     inputsId.forEach(input =>{
         input.addEventListener("click",()=>{
           const countChecked = checkBoxMulti.querySelectorAll("input[name=id]:checked").length // lay checkbox co checked = true
-          console.log(countChecked)
-          console.log(inputsId.length)
           if(countChecked == inputsId.length){
             inputCheckAll.checked = true
           }else inputCheckAll.checked = false
@@ -52,23 +50,38 @@ if(checkBoxMulti){
 }
 //End check box multi
 
-//Form change multi
+//Form change multi: lay cac id dc chon va gui vao form
 const formChangeMulti = document.querySelector("[form-change-multi]")
 if(formChangeMulti){
     formChangeMulti.addEventListener("submit", (e) =>{
         e.preventDefault()
         const checkBoxMulti = document.querySelector("[checkbox-multi]")
         const inputsChecked = checkBoxMulti.querySelectorAll("input[name=id]:checked")
-        if(inputsChecked.length > 0)
+
+        const typeChange = e.target.elements.type.value; // lay su kien chon trong form (type la name cua form)
+
+        if(typeChange == "delete-all"){ 
+            const isConfirm = confirm("Bạn có chắc chắn muốn xóa")
+            if(!isConfirm) return;
+        }
+
+        if(inputsChecked.length > 0) // nếu có ô được chọn
         {
              let ids = []
              const inputIds = formChangeMulti.querySelector("input[name=ids]")
 
              inputsChecked.forEach(input =>{
                 const id = input.value
-                ids.push(id)
-             })
+                
+                if(typeChange == "change-position"){
+                    const position = input.closest("tr").querySelector("input[name=position]").value; // closest: lay the cha (tr), tu the cha lay ra input chua vi tri
+                    ids.push(`${id}-${position}`)
+                console.log(position)
+                }else{
+                    ids.push(id)
+                }
 
+             })
              inputIds.value = ids.join(", ")//input chi luu dang mang nen phai convert thanh text 
              formChangeMulti.submit()
         }else{
