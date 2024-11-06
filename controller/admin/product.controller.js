@@ -61,7 +61,7 @@ module.exports.index= async (req, res) => { // index la ten ham
         pageTitle: "Danh sách sản phẩm",
         products: products,
         filterStatus: filterStatus,
-        keyword: objectSearch.keyword,
+        keyword: objectSearch.keywordd,
         pagination: objectPagination
     })
 }  
