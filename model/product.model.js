@@ -1,4 +1,7 @@
 const mongoose = require("mongoose")
+const slug = require("mongoose-slug-updater") // tao slug(duong dan phia nguoi dung vd: products/hieu-thu-hai)
+
+mongoose.plugin(slug)
 
 const productSchema = new mongoose.Schema( // Schema định nghĩa cấu trúc, kiểu dữ liệu, và các ràng buộc cho bản ghi trong một collection MongoDB.
     {
@@ -10,8 +13,19 @@ const productSchema = new mongoose.Schema( // Schema định nghĩa cấu trúc,
         thumbnail: String,
         status: String,
         position: Number, 
-        deleted: Boolean,
+        slug: {
+            type: String,
+            slug: "title",
+            unique: true
+        },
+        deleted: { // truyen dang lua chon bang object
+            type: Boolean, 
+            default: false
+        },
         deletedAt: Date
+    },
+    {
+        timestamps: true // them 2 thuoc tinh thoi gian tao va sua 
     }
 )
 

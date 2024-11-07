@@ -1,5 +1,7 @@
 const Product = require("../../model/product.model")
 
+const systemConfig = require("../../config/system")
+
 const filterStatusHelper = require("../../helper/filterStatus")
 const searchsHelper = require("../../helper/search")
 const paginationHelper = require("../../helper/pagination")
@@ -130,4 +132,23 @@ module.exports.create= async (req, res) => { // index la ten ham
         pageTitle: "Danh sách sản phẩm",
 
     })
+}  
+
+// [PPST] /admin/products/create
+module.exports.createPost= async (req, res) => { // index la ten ham 
+    req.body.price = parseInt(req.body.price)
+    req.body.discountPercentage = parseInt(req.body.discountPercentage)
+    req.body.stock = parseInt(req.body.stock)
+    if(req.body.position == ""){
+        const  countProducts = await Product.countDocuments();
+        req.body.position = countProducts + 1
+
+    }else {
+        req.body.position = parseInt(req.body.position)
+    }
+   
+    const product = new Product(req.body) // tạo mới 1 sp
+    await product.save() // Lưu vào database 
+
+    res.redirect(`${systemConfig.prefixAdmin}/products`)
 }  
