@@ -136,6 +136,7 @@ module.exports.create= async (req, res) => { // index la ten ham
 
 // [PPST] /admin/products/create
 module.exports.createPost= async (req, res) => { // index la ten ham 
+    console.log(req.file)
     req.body.price = parseInt(req.body.price)
     req.body.discountPercentage = parseInt(req.body.discountPercentage)
     req.body.stock = parseInt(req.body.stock)
@@ -146,9 +147,10 @@ module.exports.createPost= async (req, res) => { // index la ten ham
     }else {
         req.body.position = parseInt(req.body.position)
     }
+    req.body.thumbnail = `/uploads/${req.file.filename}` //  đường link ảnh vd: localhost:3000/uploads/dbe287825aeab57b5dba583c4aa8964c
    
-    const product = new Product(req.body) // tạo mới 1 sp
-    await product.save() // Lưu vào database 
+    // const product = new Product(req.body) // tạo mới 1 sp
+    // await product.save() // Lưu vào database 
 
     res.redirect(`${systemConfig.prefixAdmin}/products`)
 }  

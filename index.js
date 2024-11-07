@@ -1,10 +1,12 @@
 const express = require('express')
-const methodOverride = require("method-override")
+const methodOverride = require("method-override") // ghi de phuong thuc
 const route =require('./routes/client/index.route')
 const routeAdmin = require('./routes/admin/index.route')
-const flash = require('express-flash')
+const flash = require('express-flash') // tao thong bao
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
+const multer = require('multer') // upload file 
+
 require('dotenv').config()
 const systemConfig = require("./config/system")
 
