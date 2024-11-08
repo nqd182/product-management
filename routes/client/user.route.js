@@ -11,7 +11,6 @@ const validate = require("../../validates/client/user.validate")
 
 router.get('/login', controller.login)
 router.post('/login', controller.loginPost)
-
 router.get('/logout', controller.logout)    
 
 
