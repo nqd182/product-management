@@ -8,7 +8,7 @@ module.exports.inforUser = async(req,res,next) => {
             deleted: false,
             status: "active"
         }).select("-password") // ko lấy thuộc tính password ra
-        if(user){ // neu co user thi luu vao bien toan cuc de hien thi ra giao dien ko co thi van de truy cap binh thuong 
+        if(user){ // neu co user thi luu vao bien toan cuc de hien thi ra giao dien ko co thi van de truy cap bình thường 
             res.locals.user = user
        }
     }
