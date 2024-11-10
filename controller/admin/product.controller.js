@@ -148,9 +148,9 @@ module.exports.createPost= async (req, res) => {
     }else {
         req.body.position = parseInt(req.body.position)
     }
-    if(req.file){ // có tải ảnh thì mới up lên
-        req.body.thumbnail = `/uploads/${req.file.filename}` //  đường link ảnh vd: localhost:3000/uploads/dbe287825aeab57b5dba583c4aa8964c
-    }
+    // if(req.file){ // có tải ảnh thì mới up lên
+    //     req.body.thumbnail = `/uploads/${req.file.filename}` //  đường link ảnh vd: localhost:3000/uploads/dbe287825aeab57b5dba583c4aa8964c
+    // }
    
     const product = new Product(req.body) // tạo mới 1 sp
     await product.save() // Lưu vào database 
