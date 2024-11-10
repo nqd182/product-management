@@ -9,7 +9,7 @@ const accountSchema = new mongoose.Schema(
     token: {
         type: String,
         default: generate.generateRandomNumber(20)
-    }, // la 1 chuoi random la duy nhat, khi dang nhap thanh cong thi se luu token phia ng dung
+    }, // la 1 chuoi random duy nhat, khi dang nhap thanh cong thi se luu token phia ng dung
     phone: String,
     avatar: String,
     role_id: String,

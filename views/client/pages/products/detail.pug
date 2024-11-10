@@ -1,0 +1,51 @@
+extends ../../layouts/default.pug
+
+block main
+    .container.my-5
+        .card.shadow-lg
+            .row.g-0
+                // Bố cục hình ảnh bên trái và nội dung bên phải
+                if (product.thumbnail)
+                    .col-md-4
+                        img(
+                            src=product.thumbnail
+                            class="img-fluid rounded-start"
+                            alt="Product Image"
+                        )
+                .col-md-8
+                    .card-body
+                        if (product.title)
+                            h1(class="card-title mb-4 text-primary") #{product.title}
+
+                        if (product.price)
+                            div(class="mb-3 fs-5 text-secondary")
+                                | Giá: 
+                                span.text-dark #{product.price}$
+                                
+                        if (product.discountPercentage)
+                            div(class="mb-3 fs-5 text-warning")
+                                | Giảm giá: 
+                                span.text-danger #{product.discountPercentage}%
+
+                        if (product.stock)
+                            div(class="mb-3 fs-5 text-success")
+                                | Còn lại: 
+                                span.text-dark #{product.stock}
+
+                        if (product.status)
+                            div(class="mb-3 fs-5")
+                                span Trạng thái: 
+                                if (product.status === "active")
+                                    span(class="badge bg-success ms-2") Hoạt động
+                                else
+                                    span(class="badge bg-danger ms-2") Dừng hoạt động
+
+                        if (product.position)
+                            div(class="mb-3 fs-5 text-info")
+                                | Vị trí: 
+                                span.text-dark #{product.position}
+
+                        if (product.description)
+                            div(class="mt-4")
+                                h5 Mô tả sản phẩm:
+                                p.text-muted #{product.description}
