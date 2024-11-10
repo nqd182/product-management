@@ -68,3 +68,22 @@ if(showAlert){
 
 }
 //End show alert
+
+//Up load Image(Preview img upload)
+const uploadImage = document.querySelector("[upload-image]")
+if(uploadImage) {
+    const uploadImageInput = document.querySelector("[upload-image-input]")
+    const uploadImagePreview = document.querySelector("[upload-image-preview]")
+
+    uploadImageInput.addEventListener("change", (e) => {
+        console.log(e)
+       const file = e.target.files[0]
+       if(file){
+        uploadImagePreview.src = URL.createObjectURL(file) //tạo ra một URL tạm thời (blob URL) để  hiển thị nội dung của một file đã được chọn hoặc upload mà không cần phải tải file đó lên server trước
+       }
+ 
+    })
+
+    
+}
+//End upload image

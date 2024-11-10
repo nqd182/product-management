@@ -17,5 +17,5 @@ module.exports.registerPost = async (req, res, next) => {
         return;
       }
 
-    next(); // chuyen dieu khuyen sang middleware tiep theo (middleware la cac ham co the truy cap vao req,res va next)
+    next(); // chuyen dieu khuyen sang middleware tiep theo 
   }
