@@ -91,6 +91,10 @@ block main
 
                                 td 
                                     a(
+                                        class = "btn btn-secondary btn-sm ml-1"
+                                        href=`${prefixAdmin}/products/detail/${item.id}`
+                                        )  Chi tiết
+                                    a(
                                         class = "btn btn-warning btn-sm ml-1"
                                         href=`${prefixAdmin}/products/edit/${item.id}`
                                         )  Sửa
@@ -117,37 +121,4 @@ block main
         )
     script(src="/admin/js/product.js")
 
-            //- tr
-            //-     td 1
-            //-     td 
-            //-         img(
-            //-             scr="https://icdn.24h.com.vn/upload/1-2024/images/2024-02-16/3-1708096229-310-width740height494.jpg"
-            //-             alt=
-            //-             width="100px"
-            //-             height="auto"
-            //-         )
-            //-     td Sản phẩm 2
-            //-     td 100$
-            //-     td 
-            //-         a(href='#' class="badge badge-danger") Không hoạt động
-
-            //-     td 
-            //-         button(class="btn btn-warning btn-sm") Sửa
-            //-         button(class="btn btn-danger btn-sm ml-1") Xóa
-            //- tr
-            //-     td 1
-            //-     td 
-            //-         img(
-            //-             scr="https://icdn.24h.com.vn/upload/1-2024/images/2024-02-16/3-1708096229-310-width740height494.jpg"
-            //-             alt=
-            //-             width="100px"
-            //-             height="auto"
-            //-         )
-            //-     td Sản phẩm 1
-            //-     td 100$
-            //-     td 
-            //-         a(href='#' class="badge badge-success") Hoạt động
-
-            //-     td 
-            //-         button(class="btn btn-warning btn-sm") Sửa
-            //-         button(class="btn btn-danger btn-sm ml-1") Xóa
+        
