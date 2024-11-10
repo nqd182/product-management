@@ -127,17 +127,16 @@ module.exports.deleteItem = async(req, res) =>{
 }
 
 // [GET] /admin/products/create
-module.exports.create= async (req, res) => { // index la ten ham 
+module.exports.create= async (req, res) => { 
     res.render("admin/pages/products/create",{
-        pageTitle: "Danh sách sản phẩm",
+        pageTitle: "Thêm mới sản phẩm",
 
     })
 }  
 
 // [POST] /admin/products/create
-module.exports.createPost= async (req, res) => { // index la ten ham 
+module.exports.createPost= async (req, res) => { 
     // console.log(req.file)
-
     
     req.body.price = parseInt(req.body.price)
     req.body.discountPercentage = parseInt(req.body.discountPercentage)
@@ -157,4 +156,53 @@ module.exports.createPost= async (req, res) => { // index la ten ham
     await product.save() // Lưu vào database 
 
     res.redirect(`${systemConfig.prefixAdmin}/products`)
+}  
+
+// [GET] /admin/products/edit/:id
+module.exports.edit= async (req, res) => { 
+try { // try catch de khi ng dung go sai id thi ko bi sap server
+    const find = {
+        deleted: false,
+        _id: req.params.id
+    }
+
+    const product = await Product.findOne(find)
+
+
+    res.render("admin/pages/products/edit",{
+        pageTitle: "Sửa sản phẩm",
+        product: product
+    })
+} catch (error) {
+    req.flash("error", "Không tồn tại sản phẩm ")
+    res.redirect(`${systemConfig.prefixAdmin}/products`)
+}
+    
+}  
+
+// [PATCH] /admin/products/edit/:id 
+module.exports.editPatch= async (req, res) => { 
+    // console.log(req.file)
+    const id= req.params.id
+    req.body.price = parseInt(req.body.price)
+    req.body.discountPercentage = parseInt(req.body.discountPercentage)
+    req.body.stock = parseInt(req.body.stock)
+    req.body.position = parseInt(req.body.position) // lấy vị trí nhập lên nên ko cần if else nữa
+
+    if(req.body.thumbnailLink){ // thêm để sửa ảnh từ link
+        req.body.thumbnail = req.body.thumbnailLink
+    }
+    else if(req.file){ // có tải ảnh thì mới up lên
+        req.body.thumbnail = `/uploads/${req.file.filename}` //  đường link ảnh vd: localhost:3000/uploads/dbe287825aeab57b5dba583c4aa8964c
+    }
+    
+   
+    try {
+        await Product.updateOne({ _id: id}, req.body)
+        req.flash("success", `Sửa thành công sản phẩm ${req.body.title}`)
+    } catch (error) {
+        req.flash("success", `Sửa thất bại sản phẩm ${req.body.title}`)
+    }
+
+        res.redirect(`${systemConfig.prefixAdmin}/products`)
 }  

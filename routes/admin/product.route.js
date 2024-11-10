@@ -20,4 +20,14 @@ const validate = require("../../validates/admin/product.validate")
     controller.createPost
     ) // route trung nhau dc nhung pth phai khac
 
+router.get('/edit/:id', controller.edit)
+
+router.patch(
+    '/edit/:id',
+    upload.single('thumbnail'), // upload 1 anh truong thumbnail trong database
+    validate.createPost, 
+    controller.editPatch
+    ) // route trung nhau dc nhung pth phai khac
+
+
 module.exports = router

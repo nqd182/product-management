@@ -81,9 +81,6 @@ if(uploadImage) {
        if(file){
         uploadImagePreview.src = URL.createObjectURL(file) //tạo ra một URL tạm thời (blob URL) để  hiển thị nội dung của một file đã được chọn hoặc upload mà không cần phải tải file đó lên server trước
        }
- 
     })
-
-    
 }
 //End upload image
