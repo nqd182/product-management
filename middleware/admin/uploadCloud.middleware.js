@@ -10,7 +10,7 @@ cloudinary.config({
 });
 //End cloudinary
 
-module.exports.upload = (req, res, next) => { // hàm để up load ảnh lên database
+module.exports.upload = (req, res, next) => { // hàm để up load ảnh lên database cop từ docs
     if(req.file){
         let streamUpload = (req) => {
             return new Promise((resolve, reject) => {
@@ -30,8 +30,8 @@ module.exports.upload = (req, res, next) => { // hàm để up load ảnh lên d
     
         async function upload(req) {
             let result = await streamUpload(req);
-            req.body[req.file.fieldname] = result.secure_url //secure_url là link ảnh online, 
-            //req.file.fieldname là tên của input người dùng đã upload .
+            req.body[req.file.fieldname] = result.secure_url //secure_url là link ảnh online được tự tạo ra, 
+            //req.file.fieldname trả về tên của input. ví dụ req.file.thumbnail do [req.file.fieldname] = 'thumbnail'
             next()
         }
     upload(req);

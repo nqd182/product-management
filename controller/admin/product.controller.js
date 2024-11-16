@@ -36,25 +36,17 @@ module.exports.index= async (req, res) => { // index la ten ham
         req.query,
         countProducts
     )
-        //let objectPagination =
-        // {
-        //     currentPage: 1,
-        //     limitItems: 4  // so luong item 
-        // },
-        // if(req.query.page){
-        //     objectPagination.currentPage = parseInt(req.query.page) // trang hien tai dang truy cap
-        // }
-        // objectPagination.skip = (objectPagination.currentPage-1)*objectPagination.limitItems // ap dung cong thuc 
-
-        //     //Tinh so trang can de phan trang
-        // const countProducts = await Product.countDocuments(find);// lấy sl sản phẩm
-        // const totalPage = Math.ceil(countProducts/objectPagination.limitItems); //  tinh tong so trang
-        // objectPagination.totalPage = totalPage;
-        //End Pagination
-
+    //End Pagination
+    //Sort
+    let sort = {}
+    if(req.query.sortKey && req.query.sortValue){
+        sort[req.query.sortKey] = req.query.sortValue
+    }else sort.position = 'asc'
+    //End sort
+    
     //Hiển thị danh sách sản phẩm
     const products = await Product.find(find)
-    .sort({position: "asc"}) // giam dan: desc
+    .sort(sort) // giam dan: desc
     .limit(objectPagination.limitItems)
     .skip(objectPagination.skip ) //skip: bo qua bnhieu sp dau tien
 
@@ -229,4 +221,3 @@ module.exports.detail= async (req, res) => {
     }
 }
         
-

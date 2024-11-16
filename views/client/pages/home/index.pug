@@ -4,13 +4,12 @@ include ../../mixins/product-layout.pug
 
 
 block main
-    h1 Trang chủ
-        .section-products-featured.my-5
-            .container.my-3
-                .row
-                    .col-12
-                        +box-head("Sản phẩm")
+    .section-products-featured.my-5
+        .container.my-3
+            .row
+                .col-12
+                    +box-head("Sản phẩm")
 
-                +product-grid(products)
-                
+            +product-grid(products)
+            
                 

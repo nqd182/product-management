@@ -538,3 +538,15 @@
   cursor: pointer;
 }
 /* End alert-message */
+
+/**/
+
+.product-image {
+  width: 100%; /* Đảm bảo hình ảnh chiếm hết chiều ngang */
+  height: auto; /* Giữ nguyên tỷ lệ ảnh */
+  object-fit: contain; /* Đảm bảo ảnh không bị cắt */
+  display: block; 
+  margin: 0 auto; /* Căn giữa hình ảnh */
+  max-height: 300px; /* Giới hạn chiều cao nếu cần */
+}
+/**/

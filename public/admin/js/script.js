@@ -84,3 +84,34 @@ if(uploadImage) {
     })
 }
 //End upload image
+
+//Sort
+const sort = document.querySelector('[sort]')
+if(sort){
+    let url = new URL(window.location.href)
+    sortSelect = sort.querySelector('[sort-select]') 
+    sortSelect.addEventListener('change', e => {
+        const [sortKey, sortValue] = e.target.value.split("-")
+        url.searchParams.set('sortKey', sortKey)
+        url.searchParams.set('sortValue', sortValue)
+        window.location.href = url.href
+    })
+
+    //Xoa tim kiem
+    sortClear = sort.querySelector('[sort-clear]') 
+    sortClear.addEventListener('click', ()=>{
+        url.searchParams.delete('sortKey')
+        url.searchParams.delete('sortValue')
+        window.location.href = url.href
+    })
+    //checked
+    const sortKey = url.searchParams.get('sortKey')
+    const sortValue = url.searchParams.get('sortValue')
+    if(sortKey && sortValue){
+        let option = sortSelect.querySelector(`option[value=${sortKey}-${sortValue}]`)
+        option.selected = true
+    }
+
+}
+
+//End sort 

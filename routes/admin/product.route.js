@@ -32,6 +32,7 @@ router.get('/edit/:id', controller.edit)
 router.patch(
     '/edit/:id',
     upload.single('thumbnail'), // upload 1 anh truong thumbnail trong database
+    uploadCloud.upload,
     validate.createPost, 
     controller.editPatch
     ) // route trung nhau dc nhung pth phai khac

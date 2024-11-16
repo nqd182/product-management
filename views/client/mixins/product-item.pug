@@ -3,6 +3,7 @@ mixin product-item(item)
         .product-item
             .inner-image
                 img(src=item.thumbnail,
+                class="product-image",
                 alt=item.title)
                 if(item.featured == "1")
                     .inner-featured Nổi bật 
