@@ -5,13 +5,10 @@ const multer = require('multer') // thu vien de upload file
 //const storageMulter = require("../../helper/storageMulter") // import ham dinh nghia cach file duoc luu
 //const upload = multer({ dest: './public/uploads/' }) // dest: đường dẫn lưu ảnh, dest sẽ đứng từ thư mục gốc
 
-
 const upload = multer() //{storage: storageMulter()}tùy chọn storage để tùy chỉnh cách multer lưu trữ tệp như đổi tên file và nơi lưu
-
 
 const controller = require("../../controller/admin/product.controller")
 const validate = require("../../validates/admin/product.validate")
-
 const uploadCloud = require("../../middleware/admin/uploadCloud.middleware")
 
  router.get('/', controller.index)

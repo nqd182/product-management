@@ -25,8 +25,8 @@ app.set("views",`${__dirname}/views`) //cấu hình các tùy chọn như views 
 app.set("view engine","pug")
 
 // Flash de tao thong bao
-app.use(cookieParser('nqd182')); //keyboard cat la key bat ky, can cai thu vien cookie-parser
-app.use(session({ cookie: { maxAge: 60000 }}));// thoi gian cookie ton tai,  can cai thu vien express-session
+app.use(cookieParser('nqd182')); //key bat ky, can cai thu vien cookie-parser
+app.use(session({ cookie: { maxAge: 60000 }}));// thoi gian cookie ton tai, can cai thu vien express-session
 app.use(flash());
 
  // App Locals Variables

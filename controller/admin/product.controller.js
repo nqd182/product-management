@@ -40,7 +40,7 @@ module.exports.index= async (req, res) => { // index la ten ham
     //Sort
     let sort = {}
     if(req.query.sortKey && req.query.sortValue){
-        sort[req.query.sortKey] = req.query.sortValue
+        sort[req.query.sortKey] = req.query.sort
     }else sort.position = 'asc'
     //End sort
     
