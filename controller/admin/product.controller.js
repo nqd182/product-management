@@ -27,7 +27,7 @@ module.exports.index= async (req, res) => { // index la ten ham
     //Pagination: phân trang
         //công thức: Vị trí bắt đầu lấy =  (Trang hiện tại-1)*Số phần tử mỗi trang
         // Ví dụ: Trang 2, 4 sản phẩm=> vị trí bắt đầu lấy = (2-1)*4= 4 
-    const countProducts = await Product.countDocuments(find);// lấy so lg  sản phẩm
+    const countProducts = await Product.countDocuments(find);
     let objectPagination = paginationHelper(
         {
             currentPage: 1,
