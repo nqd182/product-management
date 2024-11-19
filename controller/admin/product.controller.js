@@ -1,11 +1,12 @@
 const Product = require("../../model/product.model")
+const ProductCategory = require('../../model/product-category.model') // them de lay danh sach danh muc
 
 const systemConfig = require("../../config/system")
 
 const filterStatusHelper = require("../../helper/filterStatus")
 const searchsHelper = require("../../helper/search")
 const paginationHelper = require("../../helper/pagination")
-
+const createTreeHelper = require("../../helper/createTree") 
 // [GET] /admin/products
 module.exports.index= async (req, res) => { // index la ten ham 
    
@@ -120,9 +121,17 @@ module.exports.deleteItem = async(req, res) =>{
 
 // [GET] /admin/products/create
 module.exports.create= async (req, res) => { 
-    res.render("admin/pages/products/create",{
-        pageTitle: "Thêm mới sản phẩm",
+    let find = {
+        deleted: false 
+       }
+    
+       const category = await ProductCategory.find(find)
+       
+       const newCategory = createTreeHelper.tree(category) // copy tu phan them danh muc
 
+    res.render("admin/pages/products/create",{  
+        pageTitle: "Thêm mới sản phẩm",
+        category: newCategory
     })
 }  
 
@@ -157,13 +166,19 @@ try { // try catch de khi ng dung go sai id thi ko bi sap server
         deleted: false,
         _id: req.params.id
     }
-
+    
     const product = await Product.findOne(find)
 
+    const category = await ProductCategory.find({
+        deleted: false
+    })
+       
+    const newCategory = createTreeHelper.tree(category) // copy tu phan them danh muc
 
     res.render("admin/pages/products/edit",{
         pageTitle: "Sửa sản phẩm",
-        product: product
+        product: product,
+        category: newCategory
     })
 } catch (error) {
     req.flash("error", "Không tồn tại sản phẩm ")

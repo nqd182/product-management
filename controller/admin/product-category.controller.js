@@ -82,6 +82,7 @@ module.exports.editPatch= async (req, res) => {
         await ProductCategory.updateOne({id:_id}, req.body)
     } catch (error) {
     }
+
      res.redirect("back")
  }  
  

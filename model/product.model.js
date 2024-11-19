@@ -6,6 +6,10 @@ mongoose.plugin(slug)
 const productSchema = new mongoose.Schema( // Schema định nghĩa cấu trúc, kiểu dữ liệu, và các ràng buộc cho bản ghi trong một collection MongoDB.
     {
         title: String,
+        product_category_id: {
+          type:String,
+          default:""
+        },
         description: String,
         price: Number,
         discountPercentage: Number,
