@@ -19,5 +19,13 @@ const uploadCloud = require("../../middleware/admin/uploadCloud.middleware")
     validate.createPost, 
     controller.createPost
     ) 
-    
+router.get('/edit/:id', controller.edit)
+router.patch(
+    '/edit/:id', 
+    upload.single('thumbnail'),
+    uploadCloud.upload,
+    validate.createPost, 
+    controller.editPatch,
+)
+
 module.exports = router
