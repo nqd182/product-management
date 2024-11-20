@@ -1,6 +1,6 @@
 const ProductCategory = require('../../model/product-category.model')
 const systemConfig = require("../../config/system")
-const createTreeHelper = require("../../helper/createTree") // ham de quy danh muc con 
+const createTreeHelper = require("../../helper/createTree") // ham de quy danh muc con tra ve 1 mang da phan cap
 
 // [GET] /admin/products-category
 module.exports.index= async (req, res) => {
