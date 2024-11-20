@@ -30,3 +30,32 @@ module.exports.createPost= async (req, res) => {
     res.redirect(`${systemConfig.prefixAdmin}/roles`)
 }
 
+// [GET] /admin/roles/edit/:id
+module.exports.edit= async (req, res) => { 
+try {
+    let find = {
+        _id: req.params.id,
+        deleted: false
+    }
+    let record = await Role.findOne(find)
+
+    res.render("admin/pages/roles/edit",{
+        pageTitle: "Chỉnh sửa nhóm quyền",
+        record: record
+    })
+} catch (error) {
+    res.redirect(`${systemConfig.prefixAdmin}/roles`)
+}
+   
+}
+// [GET] /admin/roles/edit/:id
+module.exports.editPatch= async (req, res) => { 
+    
+    await Role.updateOne({_id: req.params.id},req.body)
+
+    res.redirect(`${systemConfig.prefixAdmin}/roles`)
+
+    res.render("admin/pages/roles/edit",{
+        pageTitle: "Chỉnh sửa nhóm quyền",
+    })
+}
