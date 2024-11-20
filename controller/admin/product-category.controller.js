@@ -69,6 +69,7 @@ module.exports.edit= async (req, res) => {
              data: data,
              records: newRecords
          })
+
     } catch (error) {
         res.redirect(`${systemConfig.prefixAdmin}/products-category`)
     }
@@ -77,12 +78,12 @@ module.exports.edit= async (req, res) => {
 
 // [PATCH] /admin/products-category/edit/:id
 module.exports.editPatch= async (req, res) => {
-    req.body.position = parseInt(req.body.position)    
-    try {
-        await ProductCategory.updateOne({id:_id}, req.body)
-    } catch (error) {
-    }
+    let id = req.params.id
+    req.body.position = parseInt(req.body.position)
 
-     res.redirect("back")
+    await ProductCategory.updateOne({_id:id}, req.body)
+
+    res.redirect(`${systemConfig.prefixAdmin}/products-category`)
+
  }  
  
