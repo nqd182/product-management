@@ -1,5 +1,5 @@
 const express = require('express')
-const methodOverride = require("method-override") // ghi de phuong thuc
+const methodOverride = require("method-override")
 const route =require('./routes/client/index.route')
 const routeAdmin = require('./routes/admin/index.route')
 const flash = require('express-flash') // tao thong bao

@@ -59,3 +59,16 @@ module.exports.editPatch= async (req, res) => {
         pageTitle: "Chỉnh sửa nhóm quyền",
     })
 }
+
+// [GET] /admin/roles/permissions
+module.exports.permissions= async (req, res) => { 
+    let find = {
+        deleted: false
+    }
+    const records = await Role.find(find)
+
+    res.render("admin/pages/roles/index",{
+        pageTitle: "Trang nhóm quyền",
+        records: records
+    })
+}  
